@@ -18,9 +18,7 @@
 #'   If `TRUE`, then the function returns `NULL` on success
 #'   (i.e., call only for the side-effect of an error on failure, like `stopifnot`).
 #'
-#' @return `TRUE` if validation passes.
-#'   `FALSE` if validation fails.
-#'   If `error = TRUE`, returns `NULL` on success.
+#' @return `TRUE` if validation passes. `FALSE` if validation fails. If `error = TRUE`, returns `NULL` on success.
 #'
 #' @examples
 #' \dontrun{
