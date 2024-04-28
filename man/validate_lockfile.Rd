@@ -8,31 +8,29 @@ validate_lockfile(
   project = NULL,
   lockfile = NULL,
   lockfile_schema = NULL,
-  engine = "ajv",
   greedy = FALSE,
   error = FALSE,
   verbose = FALSE
 )
 }
 \arguments{
-\item{lockfile}{Contents of the lockfile, or a filename containing one.}
+\item{lockfile}{Contents of the lockfile, or a filename containing one.
+If not provided, it defaults to the project's lockfile.}
 
 \item{lockfile_schema}{Contents of the renv schema, or a filename containing a schema.
 If not provided, renv's default schema is used.}
 
-\item{engine}{Specify the validation engine to use.
-Options are "imjv" (the default; which uses "is-my-json-valid")
-and "ajv" (Another JSON Schema Validator).
-The latter supports more recent json schema features.}
+\item{greedy}{Boolean. Continue after first error?}
 
-\item{greedy}{Continue after first error?}
-
-\item{error}{Throw an error on parse failure?
-If \code{TRUE}, then the function returns \code{NULL} on success
+\item{error}{Boolean. Throw an error on parse failure?
+If \code{TRUE}, then the function returns \code{NULL} on success.
 (i.e., call only for the side-effect of an error on failure, like \code{stopifnot}).}
 }
+\value{
+\code{TRUE} if validation passes. \code{FALSE} if validation fails. If \code{error = TRUE}, returns \code{NULL} on success.
+}
 \description{
-\code{renv::validate_lockfile()} can be used to validate your renv.lock
+\code{renv::validate_lockfile()} can be used to validate your \code{renv.lock}
 against a default or custom schema.
 }
 \details{
@@ -43,5 +41,11 @@ Uses ROpenSci's \href{https://docs.ropensci.org/jsonvalidate/}{\code{jsonvalidat
 
 # validate the project's lockfile
 renv::validate_lockfile()
+
+# validate the project's lockfile using a non-default schema
+renv::validate_lockfile(lockfile_schema = "/path/to/your/custom/schema")
+
+# validate a lockfile using its path
+renv::validate_lockfile(lockfile = "/path/to/your/lockfile")
 }
 }
