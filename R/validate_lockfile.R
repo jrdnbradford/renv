@@ -37,7 +37,7 @@ validate_lockfile <- function(project = NULL, lockfile = NULL, lockfile_schema =
 {
   project <- renv_project_resolve(project)
   lockfile <- lockfile %||% renv_lockfile_path(project = project)
-  print(lockfile)
+  print(paste("Lockfile path:", lockfile))
   # renv_lockfile_load(project = project)
 
 
