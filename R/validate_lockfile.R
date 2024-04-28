@@ -31,7 +31,7 @@
 #' # validate the project's lockfile using a non-default schema
 #' renv::validate_lockfile(lockfile_schema = "/path/to/your/custom/schema")
 #'
-#' #' # validate a lockfile using its path
+#' # validate a lockfile using its path
 #' renv::validate_lockfile(lockfile = "/path/to/your/lockfile")
 #' }
 #' @export
