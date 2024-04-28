@@ -44,9 +44,10 @@ validate_lockfile <- function(project = NULL, lockfile = NULL, lockfile_schema =
   if (!file.exists(lockfile))
     stop(paste("No project lockfile exists at", lockfile))
 
-  if (is.null(lockfile_schema))
+  if (is.null(lockfile_schema)) {
     print("Using {renv} lockfile schema")
     lockfile_schema <- "inst/schema/draft-07.renv.lock.schema.json"
+  }
 
   print("Validating...")
   jsonvalidate::json_validate(
