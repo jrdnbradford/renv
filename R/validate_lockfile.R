@@ -40,13 +40,12 @@ validate_lockfile <- function(project = NULL, lockfile = NULL, lockfile_schema =
   print(paste("Lockfile path:", lockfile))
   # renv_lockfile_load(project = project)
 
-
   if (!file.exists(lockfile))
     stop(paste("No project lockfile exists at", lockfile))
 
   if (is.null(lockfile_schema)) {
     print("Using {renv} lockfile schema")
-    lockfile_schema <- "inst/schema/draft-07.renv.lock.schema.json"
+    lockfile_schema <- system.file("schema", "draft-07.renv.lock.schema.json", package = "renv")
   }
 
   print("Validating...")
