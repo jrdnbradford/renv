@@ -1,7 +1,8 @@
 
 #' Validate the renv lockfile against a schema
 #'
-#' `renv::validate_lockfile()` can be used to validate your `renv.lock`
+#' @description
+#' `renv::lockfile_validate()` can be used to validate your `renv.lock`
 #' against a default or custom schema.
 #'
 #' Uses ROpenSci's [`jsonvalidate`](https://docs.ropensci.org/jsonvalidate/) package.
@@ -16,35 +17,43 @@
 #'
 #' @param error Boolean. Throw an error on parse failure?
 #'
-#' @return `TRUE` if validation passes. `FALSE` if validation fails.
+#' @param verbose Boolean. If `TRUE`, then an attribute `errors` will list validation failures as a `data.frame`.
+#' 
+#' @param strict Boolean. Set whether the schema should be parsed strictly or not.
+#'   If in strict mode schemas will error to "prevent any unexpected behaviours or silently ignored mistakes in user schema".
+#'   For example it will error if encounters unknown formats or unknown keywords.
+#'   See https://ajv.js.org/strict-mode.html for details.
+#'
+#' @return Boolean. `TRUE` if validation passes. `FALSE` if validation fails.
 #'
 #' @examples
 #' \dontrun{
 #'
 #' # validate the project's lockfile
-#' renv::validate_lockfile()
+#' renv::lockfile_validate()
 #'
 #' # validate the project's lockfile using a non-default schema
-#' renv::validate_lockfile(lockfile_schema = "/path/to/your/custom/schema")
+#' renv::lockfile_validate(lockfile_schema = "/path/to/your/custom/schema.json")
 #'
 #' # validate a lockfile using its path
-#' renv::validate_lockfile(lockfile = "/path/to/your/lockfile")
+#' renv::lockfile_validate(lockfile = "/path/to/your/renv.lock")
 #' }
 #' @export
-validate_lockfile <- function(project = NULL,
+lockfile_validate <- function(project = NULL,
                               lockfile = NULL,
                               lockfile_schema = NULL,
                               greedy = FALSE,
                               error = FALSE,
-                              verbose = FALSE)
+                              verbose = FALSE,
+                              strict = FALSE)
 {
   project <- renv_project_resolve(project)
   lockfile <- lockfile %||% renv_lockfile_path(project = project)
-  print(paste("Lockfile path:", lockfile))
-  # renv_lockfile_load(project = project)
 
-  if (!file.exists(lockfile))
-    stop(paste("No project lockfile exists at", lockfile))
+  # if (!is.null(lockfile))
+  #   stop(paste("No project lockfile exists at", lockfile))
+  # if (!file.exists(lockfile))
+  #   stop(paste("No project lockfile exists at", lockfile))
 
   if (is.null(lockfile_schema)) {
     print("Using {renv} lockfile schema")
@@ -61,5 +70,6 @@ validate_lockfile <- function(project = NULL,
                               engine = "ajv",
                               greedy = greedy,
                               error = error,
-                              verbose = verbose)
+                              verbose = verbose,
+                              strict = strict)
 }
