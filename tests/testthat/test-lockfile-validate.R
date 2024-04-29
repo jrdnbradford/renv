@@ -167,7 +167,7 @@ test_that("an incorrect Packages$Hash field fails validation", {
   expect_false(lockfile_validate(lockfile = lockfile))
 })
 
-test_that("an incorrect Packages object fails validation", {
+test_that("invalid JSON fails validation", {
   # Packages uses [] which is not valid JSON
   lockfile <- '
 {
@@ -195,7 +195,7 @@ test_that("an incorrect Packages object fails validation", {
 })
 
 test_that("strict mode catches unknown keyword in provided schema", {
-  # Packages uses [] which is not valid JSON
+  # Custom schema provides "Version" with "type": "UNKNOWN"
   lockfile <- '
 {
   "R": {

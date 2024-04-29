@@ -37,9 +37,18 @@ Boolean. \code{TRUE} if validation passes. \code{FALSE} if validation fails.
 }
 \description{
 \code{renv::lockfile_validate()} can be used to validate your \code{renv.lock}
-against a default or custom schema.
+against a default or custom schema. It can be used to automate checks,
+check for obvious errors, and ensure that any custom fields you add fit
+your specific needs.
+}
+\details{
+See the \href{https://json-schema.org/}{JSON Schema docs} for more information
+on JSON schemas, their use in validation, and how to write your own schema.
 
-Uses ROpenSci's \href{https://docs.ropensci.org/jsonvalidate/}{\code{jsonvalidate}} package.
+\code{renv::lockfile_validate()} wraps ROpenSci's
+\href{https://docs.ropensci.org/jsonvalidate/}{\code{jsonvalidate}} package, passing
+many of its parameters to that package's \code{json_validate()} function. Use
+\code{?jsonvalidate::json_validate} for more information.
 }
 \examples{
 \dontrun{

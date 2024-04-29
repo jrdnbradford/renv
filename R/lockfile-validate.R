@@ -3,9 +3,18 @@
 #'
 #' @description
 #' `renv::lockfile_validate()` can be used to validate your `renv.lock`
-#' against a default or custom schema.
+#' against a default or custom schema. It can be used to automate checks,
+#' check for obvious errors, and ensure that any custom fields you add fit
+#' your specific needs.
 #'
-#' Uses ROpenSci's [`jsonvalidate`](https://docs.ropensci.org/jsonvalidate/) package.
+#' @details
+#' See the [JSON Schema docs](https://json-schema.org/) for more information
+#' on JSON schemas, their use in validation, and how to write your own schema.
+#'
+#' `renv::lockfile_validate()` wraps ROpenSci's
+#' [`jsonvalidate`](https://docs.ropensci.org/jsonvalidate/) package, passing
+#' many of its parameters to that package's `json_validate()` function. Use
+#' `?jsonvalidate::json_validate` for more information.
 #'
 #' @param lockfile Contents of the lockfile, or a filename containing one.
 #'   If not provided, it defaults to the project's lockfile.
@@ -47,23 +56,14 @@ lockfile_validate <- function(project = NULL,
                               verbose = FALSE,
                               strict = FALSE)
 {
+
   project <- renv_project_resolve(project)
   lockfile <- lockfile %||% renv_lockfile_path(project = project)
+  lockfile_schema <- lockfile_schema %||% system.file("schema",
+                                                      "draft-07.renv.lock.schema.json",
+                                                      package = "renv",
+                                                      mustWork = TRUE)
 
-  # if (!is.null(lockfile))
-  #   stop(paste("No project lockfile exists at", lockfile))
-  # if (!file.exists(lockfile))
-  #   stop(paste("No project lockfile exists at", lockfile))
-
-  if (is.null(lockfile_schema)) {
-    print("Using {renv} lockfile schema")
-    lockfile_schema <- system.file("schema",
-                                   "draft-07.renv.lock.schema.json",
-                                   package = "renv",
-                                   mustWork = TRUE)
-  }
-
-  print("Validating...")
   # "ajv" engine required for schema specifications later than draft-04"
   jsonvalidate::json_validate(lockfile,
                               lockfile_schema,
