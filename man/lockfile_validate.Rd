@@ -18,7 +18,7 @@ lockfile_validate(
 \item{lockfile}{Contents of the lockfile, or a filename containing one.
 If not provided, it defaults to the project's lockfile.}
 
-\item{lockfile_schema}{Contents of the renv schema, or a filename containing a schema.
+\item{lockfile_schema}{Contents of a renv schema, or a filename containing a schema.
 If not provided, renv's default schema is used.}
 
 \item{greedy}{Boolean. Continue after first error?}

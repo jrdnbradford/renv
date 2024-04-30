@@ -19,7 +19,7 @@
 #' @param lockfile Contents of the lockfile, or a filename containing one.
 #'   If not provided, it defaults to the project's lockfile.
 #'
-#' @param lockfile_schema Contents of the renv schema, or a filename containing a schema.
+#' @param lockfile_schema Contents of a renv schema, or a filename containing a schema.
 #'   If not provided, renv's default schema is used.
 #'
 #' @param greedy Boolean. Continue after first error?
@@ -49,8 +49,8 @@
 #' }
 #' @export
 lockfile_validate <- function(project = NULL,
-                              lockfile = NULL,
-                              lockfile_schema = NULL,
+                              lockfile = NULL, # Use default project lockfile if not provided
+                              lockfile_schema = NULL, # Use default schema if not provided
                               greedy = FALSE,
                               error = FALSE,
                               verbose = FALSE,
@@ -64,7 +64,7 @@ lockfile_validate <- function(project = NULL,
                                                       package = "renv",
                                                       mustWork = TRUE)
 
-  # "ajv" engine required for schema specifications later than draft-04"
+  # "ajv" engine required for schema specifications later than draft-04
   jsonvalidate::json_validate(lockfile,
                               lockfile_schema,
                               engine = "ajv",

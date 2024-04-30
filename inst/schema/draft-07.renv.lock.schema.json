@@ -11,7 +11,8 @@
       "properties": {
         "Version": {
           "description": "The version of R used",
-          "type": "string"
+          "type": "string",
+          "examples": ["4.2.3"]
         },
         "Repositories": {
           "description": "The R repositories used in this project",
@@ -40,8 +41,9 @@
       "type": "object",
       "properties": {
         "Version": {
-          "description": "",
-          "type": "string"
+          "description": "Release of Bioconductor",
+          "type": "string",
+          "examples": ["3.18"]
         }
       },
       "required": ["Version"]
@@ -100,7 +102,8 @@
           "Hash": {
             "description": "(Optional) A unique hash for this package, used for package caching",
             "type": "string",
-            "pattern": "^[a-fA-F0-9]{32}$"
+            "pattern": "^[a-fA-F0-9]{32}$",
+            "examples": ["06230136b2d2b9ba5805e1963fa6e890"]
           },
           "RemoteType": {
             "description": "Type of the remote, typically written for packages installed by the devtools, remotes and pak packages",
@@ -110,7 +113,7 @@
           "RemoteHost": {
             "description": "Host for the remote",
             "type": "string",
-            "format": "uri",
+            "format": "hostname",
             "examples": ["api.github.com"]
           },
           "RemoteUsername": {
@@ -135,8 +138,9 @@
             ]
           },
           "RemoteRef": {
-            "description": "Name of the packages",
-            "type": "string"
+            "description": "Ref of the package",
+            "type": "string",
+            "examples": ["renv", "main"]
           },
           "RemotePkgRef": {
             "description": "Name of the packages",
@@ -149,7 +153,8 @@
           },
           "RemoteSha": {
             "description": "Version number of the package",
-            "type": "string"
+            "type": "string",
+            "examples": ["1763e0dcb72fb58d97bab97bb834fc71f1e012bc"]
           },
           "Requirements": {
             "description": "Dependencies of the package",
