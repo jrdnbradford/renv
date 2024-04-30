@@ -92,7 +92,11 @@
           "Source": {
             "description": "The location from which this package was retrieved",
             "type": "string",
-            "examples": ["Repository", "Bioconductor"]
+            "examples": [
+              "Repository", 
+              "Bioconductor",
+              "/mnt/r/pkg/skeleton_1.0.1.tar.gz"
+            ]
           },
           "Repository": {
             "description": "The name of the repository (if any) from which this package was retrieved",
@@ -100,10 +104,14 @@
             "examples": ["CRAN"]
           },
           "Hash": {
-            "description": "(Optional) A unique hash for this package, used for package caching",
+            "description": "A unique hash for this package, used for package caching",
             "type": "string",
             "pattern": "^[a-fA-F0-9]{32}$",
             "examples": ["06230136b2d2b9ba5805e1963fa6e890"]
+          },
+          "biocViews": {
+            "description": "Bioconductor package dependencies",
+            "type": "string"
           },
           "RemoteType": {
             "description": "Type of the remote, typically written for packages installed by the devtools, remotes and pak packages",
